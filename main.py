@@ -1,7 +1,12 @@
 import requests
 import pandas
+import json
 import re
+import os
+import urllib.request as request
 from bs4 import BeautifulSoup
+
+folder = os.getcwd()
 
 print("Copiar textualmente una de las opciones escritas en los parentesis")
 
@@ -71,22 +76,20 @@ for page in range(1, pageQuantity, 1):
             print(expenses) 
             dictionary["Expenses"] = expenses
         except:
-            dictionary["Expenses"] = "None"
+            dictionary["Expenses"] = "Sin expensas."
             pass
-        specs = item.find("ul", {"class":"main-features go-to-posting"}).text.lstrip()
+        specs = item.find("ul", {"class":"main-features go-to-posting"}).text.lstrip().replace("\n"," |")
         print(specs)
         dictionary["Specs"] = specs
-        publicationDate = item.find("ul", {"class":"posting-features go-to-posting"}).text.lstrip()
+        publicationDate = item.find("ul", {"class":"posting-features go-to-posting"}).text.lstrip().replace("\n"," | ")
         print(publicationDate)
         dictionary["Publication Date"] = publicationDate
         l.append(dictionary)
+        image = item.find("div", {"class":"slide-content go-to-posting is-selected"})
 
 save = input("Guardar resultados en la base de datos? si/no: ")
 if save == "si":
     dataframe = pandas.DataFrame(l)
-    dataframe.to_csv("dataframe.csv")
+    dataframe.to_json("dataframe.json")
 else:
-    pass
-
-
-    
+    pass                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
